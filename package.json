@@ -1,0 +1,33 @@
+{
+  "name": "example-auth-provider",
+  "version": "1.0.0",
+  "description": "Example implementation of a 3rd party auth provider for Oddworks.",
+  "main": "index.js",
+  "engine": {
+    "node": "6.x"
+  },
+  "scripts": {
+    "dev": "PORT=3000 nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oddnetworks/example-auth-provider.git"
+  },
+  "author": "Blain Smith <rebelgeek@blainsmith.com> (http://blainsmith.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oddnetworks/example-auth-provider/issues"
+  },
+  "homepage": "https://github.com/oddnetworks/example-auth-provider#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "lodash": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
