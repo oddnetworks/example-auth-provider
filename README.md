@@ -12,6 +12,8 @@ $ npm run dev
 
 This will start the example server on http://localhost:3000 with `/login` and `/verify` routes.
 
+There is also a demo running at Heroku at http://example-auth-provider.herokuapp.com for your convenience to try. We recommend using https://www.getpostman.com to issue requests for testing.
+
 ## `POST http://yourdomain.com/login`
 
 **Oddworks Request**
