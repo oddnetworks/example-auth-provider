@@ -7,9 +7,9 @@ const app = express();
 
 // Mock DB of user records
 const DB = [
-	{id: 1, email: 'user1@example.com', password: 'pass12345'},
-	{id: 2, email: 'user2@example.com', password: 'pass12345'},
-	{id: 3, email: 'user3@example.com', password: 'pass12345'}
+	{id: 1, email: 'user1@example.com', password: 'pass12345', entitlements: ['free']},
+	{id: 2, email: 'user2@example.com', password: 'pass12345', entitlements: ['annually']},
+	{id: 3, email: 'user3@example.com', password: 'pass12345', entitlements: ['monthly', 'trial']}
 ];
 
 app.use(bodyParser.json());
@@ -26,22 +26,27 @@ app.post('/login', (req, res) => {
 
 			// If a user is found AND the passwords match then respond with a HTTP 200 with a viewer
 			if (user && user.password === payload.attributes.password) {
+
+				// Create and sign a JWT for future logins from a server on behalf of this user
+				const token = jwt.sign({
+					iss: 'example.com',
+					sub: user.id
+				},
+				'secret',
+				{
+					expiresIn: '5 days'
+				});
+
 				res.status(200).send({
 					data: {
 						id: user.id,
 						type: 'viewer',
 						attributes: {
-							email: user.email
+							email: user.email,
+							entitlements: user.entitlements
 						},
 						meta: {
-							jwt: jwt.sign({
-								iss: 'example.com',
-								sub: user.id
-							},
-							'secret',
-							{
-								expiresIn: '5 days'
-							})
+							jwt: token
 						}
 					}
 				});
@@ -72,22 +77,26 @@ app.post('/verify', (req, res) => {
 					// If valid JWT look up the user in the DB based on the jwt.sub and respond with a HTTP 200 with a viewer
 					const user = _.find(DB, {id: decoded.sub});
 
+					// Create and sign a new JWT with an updated expiration date
+					const token = jwt.sign({
+						iss: 'example.com',
+						sub: user.id
+					},
+					'secret',
+					{
+						expiresIn: '5 days'
+					});
+
 					res.status(200).send({
 						data: {
 							id: user.id,
 							type: 'viewer',
 							attributes: {
-								email: user.email
+								email: user.email,
+								entitlements: user.entitlements
 							},
 							meta: {
-								jwt: jwt.sign({
-									iss: 'example.com',
-									sub: user.id
-								},
-								'secret',
-								{
-									expiresIn: '5 days'
-								})
+								jwt: token
 							}
 						}
 					});

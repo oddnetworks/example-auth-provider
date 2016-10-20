@@ -34,6 +34,7 @@ When Oddworks posts to your login route it should respond with a **HTTP 200** wi
 
 - `id` - this is the record number of your viewer/user on your end
 - `email` - Oddworks will keep this as the canonical ID in our system so that we can look up users by email quickly when serving content
+- `entitlements` - indicate the initial entitlements the viewer should have upon login
 - `jwt` - this is YOUR JWT used later on when Oddworks needs to re-verify users so we can login on their behalf without requiring Oddworks to store their password locally.
 
 ```json
@@ -41,7 +42,8 @@ When Oddworks posts to your login route it should respond with a **HTTP 200** wi
   "id": "YOUR_VIEWER_RECORD_ID",
   "type": "viewer",
   "attributes": {
-    "email": "viewer@yourdomain.com"
+    "email": "viewer@yourdomain.com",
+    "entitlements": ["premium", "yearly"]
   },
   "meta": {
     "jwt": "YOUR_SIGNED_JWT"
@@ -71,10 +73,11 @@ Should return the same response as above since Oddworks is logging in as a user 
   "id": "YOUR_VIEWER_RECORD_ID",
   "type": "viewer",
   "attributes": {
-    "email": "viewer@yourdomain.com"
+    "email": "viewer@yourdomain.com",
+    "entitlements": ["premium", "yearly"]
   },
   "meta": {
-    "jwt": "YOUR_SIGNED_JWT"
+    "jwt": "YOUR_SIGNED_JWT_WITH_UPDATED_EXPIRATION"
   }
 }
 ```
