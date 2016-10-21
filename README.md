@@ -20,10 +20,12 @@ There is also a demo running at Heroku at http://example-auth-provider.herokuapp
 
 ```json
 {
-  "type": "authentication",
-  "attributes": {
-    "email": "viewer@yourdomain.com",
-    "password": "pass12345"
+  "data": {
+    "type": "authentication",
+    "attributes": {
+      "email": "viewer@yourdomain.com",
+      "password": "pass12345"
+    }
   }
 }
 ```
@@ -39,14 +41,16 @@ When Oddworks posts to your login route it should respond with a **HTTP 200** wi
 
 ```json
 {
-  "id": "YOUR_VIEWER_RECORD_ID",
-  "type": "viewer",
-  "attributes": {
-    "email": "viewer@yourdomain.com",
-    "entitlements": ["premium", "yearly"]
-  },
-  "meta": {
-    "jwt": "YOUR_SIGNED_JWT"
+  "data": {
+    "id": "YOUR_VIEWER_RECORD_ID",
+    "type": "viewer",
+    "attributes": {
+      "email": "viewer@yourdomain.com",
+      "entitlements": ["premium", "yearly"]
+    },
+    "meta": {
+      "jwt": "YOUR_SIGNED_JWT"
+    }
   }
 }
 ```
@@ -57,9 +61,11 @@ When Oddworks posts to your login route it should respond with a **HTTP 200** wi
 
 ```json
 {
-  "type": "authorization",
-  "attributes": {
-    "jwt": "THE_JWT_YOU_SENT_FROM_ABOVE"
+  "data": {
+    "type": "authorization",
+    "attributes": {
+      "jwt": "THE_JWT_YOU_SENT_FROM_ABOVE"
+    }
   }
 }
 ```
@@ -70,14 +76,16 @@ Should return the same response as above since Oddworks is logging in as a user 
 
 ```json
 {
-  "id": "YOUR_VIEWER_RECORD_ID",
-  "type": "viewer",
-  "attributes": {
-    "email": "viewer@yourdomain.com",
-    "entitlements": ["premium", "yearly"]
-  },
-  "meta": {
-    "jwt": "YOUR_SIGNED_JWT_WITH_UPDATED_EXPIRATION"
+  "data": {
+    "id": "YOUR_VIEWER_RECORD_ID",
+    "type": "viewer",
+    "attributes": {
+      "email": "viewer@yourdomain.com",
+      "entitlements": ["premium", "yearly"]
+    },
+    "meta": {
+      "jwt": "YOUR_SIGNED_JWT_WITH_UPDATED_EXPIRATION"
+    }
   }
 }
 ```
